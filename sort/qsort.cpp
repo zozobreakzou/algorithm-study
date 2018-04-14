@@ -77,6 +77,34 @@ void qsort2(int a[], int low, int high)
     qsort2(a, pivot + 1, high);
 }
 
+int partition3(int a[], int low, int high)
+{
+    int k = a[high];
+    int i = low - 1;
+    int j = low;
+
+    while (j<high) {
+        if (a[j] <= k) {
+            ++i;
+            std::swap(a[i], a[j]);
+        }
+        ++j;
+    }
+    std::swap(a[i+1], a[high]);
+    return i + 1;
+}
+
+void qsort3(int a[], int low, int high)
+{
+    assert(a);
+    if (low >= high)
+        return;
+
+    int pivot = partition3(a, low, high);
+    qsort3(a, low, pivot - 1);
+    qsort3(a, pivot + 1, high);
+}
+
 void assert_array_same(int a1[], size_t s1, int a2[], size_t s2)
 {
     assert(s1 == s2);
@@ -122,6 +150,7 @@ int main()
 {
     test(qsort1);
     test(qsort2);
+    test(qsort3);
 
     return 0;
 }
