@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <algorithm>
 #include <cassert>
+#include <vector>
 
 void merge(int a[], int n, int k)
 {
@@ -104,6 +105,21 @@ void test()
     int a94[9] = { 9, 1, 6, 5, 6, 7, 2, 2, 3 }; merge_sort(a94, 9); assert_array_same(a94, 9, a90, 9);
     int a95[9] = { 5, 6, 6, 9, 2, 2, 3, 7, 1 }; merge_sort(a95, 9); assert_array_same(a95, 9, a90, 9);
     int a96[9] = { 9, 7, 6, 6, 5, 3, 2, 2, 1 }; merge_sort(a96, 9); assert_array_same(a96, 9, a90, 9);
+
+    while (true) {
+        std::vector<int> a;
+        int s = std::rand()%1000;
+        for (int i = 0; i < s; ++i) {
+            a.push_back(std::rand()%1000);
+        }
+        std::vector<int> b = a;
+        std::sort(b.begin(), b.end());
+        for (int i = 0; i < 10; i++) {
+            merge_sort(a.data(), s);
+            assert(a == b);
+            std::random_shuffle(a.begin(), a.end());
+        }
+    }
 }
 
 int main()
